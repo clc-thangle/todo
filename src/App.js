@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import TodoItem from './TodoItem';
+import TodoList from './TodoList';
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            item : []
+        } 
+    }
+    
+    addItem = (taskName) => {
+        const newTask = {
+            text : taskName,
+            key : Date.now()
+        }
+        if( taskName !== null && taskName !=='')
+        {
+            const item = [...this.state.item,newTask]
+            this.setState( state => {
+                return{
+                    item: [...state.item,newTask]
+                }
+            })
+        }
+    }
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    render() {
+        return (
+            <div>
+                <TodoList addItem={this.addItem}/>
+                <TodoItem entris={this.state.item}/>
+            </div>
+        );
+    }
 }
-
 export default App;
