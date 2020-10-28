@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 
-class TodoItem extends Component {
+class TodoItem extends Component {    
+
+    delete(key) {
+        this.props.delete(key);
+    }
 
     createTask = item => {
         return(
-            <li key={item.key}>
+            <div>
+            <input key={item.key}>
                 {item.text}
-            </li>
+            </input>
+            <button onClick={() => this.delete(item.key)} className="delete">Delete</button>
+            </div>
+            
         )
     }
 

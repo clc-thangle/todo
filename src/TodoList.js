@@ -1,15 +1,15 @@
 import React, {useState} from 'react'
 import {useForm} from 'react-hook-form';
-export default function TodoList() {
+import PropTypes from 'prop-types';
+export default function TodoList({addItem}) {
 
     const { register, handleSubmit, errors} = useForm();
     const [taskName, setTittle] = useState('');
-    const onSubmit = (e) => {
-        e.preventDefault()
+    const onSubmit = () => {
+        if((!taskName) || (taskName ==='')) return;
         addItem(taskName);
         setTittle('');
     }
-
     // handleInput = e => {
     //     e.preventDefault()
     //     const taskName = this.refs.taskInput.value;
@@ -24,7 +24,7 @@ export default function TodoList() {
             <div className="todoListMain">
                 <div className="header">
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <input type="text" onChange={(e) => setTittle(e.target.value)} name="task" placeholder="Task" ref={register}/>
+                        <input type="text" value={taskName} onChange={(e) => setTittle(e.target.value)} name="task" placeholder="Task" ref={register}/>
                         <button type="submit"> *Add Task*</button>
                     </form>
                 </div>
@@ -32,8 +32,8 @@ export default function TodoList() {
         );    
 }
 
-TodoList.protoType = {
-    addItem: Proptypes.func
+TodoList.protoTypes = {
+    addItem: PropTypes.func
 }
 
 

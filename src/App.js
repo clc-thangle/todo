@@ -7,6 +7,8 @@ class App extends Component {
         this.state = {
             item : []
         } 
+        this.addItem = this.addItem.bind(this);
+        this.deleteItem = this.deleteItem.bind(this);
     }
     
     addItem = (taskName) => {
@@ -22,14 +24,25 @@ class App extends Component {
                     item: [...state.item,newTask]
                 }
             })
+            console.log(item);
         }
     }
+
+    deleteItem(key) {
+        var filteredItems = this.state.item.filter(function (items) {
+          return (items.key !== key);
+        });
+       
+        this.setState({
+          item: filteredItems
+        });
+      }
 
     render() {
         return (
             <div>
                 <TodoList addItem={this.addItem}/>
-                <TodoItem entris={this.state.item}/>
+                <TodoItem entris={this.state.item} delete={this.deleteItem}/>
             </div>
         );
     }
