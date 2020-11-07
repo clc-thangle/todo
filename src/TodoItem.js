@@ -1,49 +1,41 @@
 import React, { Component } from 'react';
-
+import { Button, notification, Input } from 'antd';
+import Noti from './Noti';
 class TodoItem extends Component {
 
     delete(key) {
         this.props.delete(key);
     }
 
-    // editItem = (key, value) => {
-    //     this.props.edit(key, value);
-    //     // const item = this.props
-    //     // const list = item.item
-    //     // const index = list.findIndex((item) => {
-    //     //     return item.key === key
-    //     // });
-    //     // const tam = Object.assign({}, list[index]);
-    //     // const todoItems = Object.assign({}, list);
-    //     // todoItems[index] = {
-    //     //     ...tam,
-    //     //     text: value, 
-    //     // }
-    //     // this.setState({list: todoItems})
-    //     // console.log('tạm', todoItems)
-    //     // console.log('gốc', list)
-    // }
+    openNoti() {
+        Noti.success('Edit success');
+    }
 
     createTask = () => {
+
         const item = this.props
         const list = item.item
         if (list) {
-            return list.map((item)=> {
-                return  (
-                    <div>
+            return list.map((item) => {
+                return (
+                    <div className="mainItem">
                         <li key={item.key}>
-                            <input onChange={(e) => this.props.editItem(item.key, e.target.value)} defaultValue={item.text}/>
+                            <Input onChange={(e) => this.props.editItem(item.key, e.target.value)} defaultValue={item.text} />
                         </li>
-                        <button onClick={() => this.delete(item.key)} className="delete">Delete</button>
+                        
+                        <Button onClick={() => this.delete(item.key)} className="delete">Delete</Button>
+                        {this.props.isShow && <Button className="edit" onClick={this.openNoti}>Confirm</Button>}
                     </div>
-                )}
-                );}
+                )
+            }
+            );
+        }
     }
 
     render() {
         return (
-            <div>
-            <ul className="theList">{this.createTask()}</ul>
+            <div className="mainList">
+                <ul className="theList">{this.createTask()}</ul>
             </div>
         );
     }

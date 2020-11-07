@@ -23,8 +23,8 @@ export default function TodoList({addItem}) {
         return (
             <div className="todoListMain">
                 <div className="header">
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <input type="text" value={taskName} onChange={(e) => setTittle(e.target.value)} name="task" placeholder="Task" ref={register}/>
+                    <form className="mainForm" onSubmit={handleSubmit(onSubmit)}>
+                        <input className="form" type="text" value={taskName} onChange={(e) => setTittle(e.target.value)} name="task" placeholder="Task" ref={register}/>
                         <button type="submit"> *Add Task*</button>
                     </form>
                 </div>
